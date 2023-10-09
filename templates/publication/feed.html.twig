@@ -1,0 +1,33 @@
+
+{% extends "base.html.twig" %}
+{% block over_link_head %}
+    <script defer type="text/javascript" src="{{ asset("js/publications.js") }}"></script>
+{% endblock %}
+{% block page_content %}
+<main id="the-feed-main">
+    <div id="feed">
+        {% if is_granted('ROLE_USER') %}
+        <!-- Génération de la balise <form>, possédant un id (HTML) "feedy-new" -->
+        {{ form_start( postForm ,{'attr' : {'id':"feedy-new"} }) }}
+        <fieldset>
+            <legend>Nouveau feedy</legend>
+            <div>
+                <!-- Le textarea généré, avec le placeholder "Qu'avez-vous en tête?" -->
+                {{ form_widget(postForm.message, {'id' : 'mess', 'attr' : {'placeholder':"Qu'avez-vous en tête?"}} ) }}
+            </div>
+            <div>
+                <!-- Le bouton de validation, possédant l'id "feedy-new-submit" et le label "Feeder!" -->
+                {{ form_widget(postForm.publier, {'id' : 'feedy-new-submit', 'label':'Feeder!'}) }}
+            </div>
+        </fieldset>
+        <!-- Génération des balises restantes (token CSRF) -->
+        {{ form_rest(postForm) }}
+        <!-- Génération de la balise fermante </form> -->
+        {{ form_end(postForm) }}
+        {% endif %}
+        {% for post in publications %}
+        {{ include('publication/publication.html.twig',{'post':post}) }}
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

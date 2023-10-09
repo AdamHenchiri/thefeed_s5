@@ -1,0 +1,24 @@
+<div class="feedy">
+    <div class="feedy-header">
+        <a href="{{ path('pagePerso', {'login' : post.getAuteur().getLogin()}) }}">
+            <img class="avatar"
+                    {% if (post.getAuteur().getNomPhotoProfil()) != null %}
+                        src="{{ asset("img/utilisateurs/uploads/" ~ post.getAuteur().getNomPhotoProfil() ) }}"
+                    {% else %}
+                        src="{{ asset("img/utilisateurs/anonyme.jpg") }}"
+                    {% endif %}
+                 alt="avatar de l'utilisateur">
+        </a>
+        <div class="feedy-info">
+            <span>{{ post.getAuteur().getLogin() }}</span>
+            <span> - </span>
+            <span>{{ post.getDatePublication()|date("d/m/Y") }}</span>
+            <p>{{ post.getMessage() }}</p>
+            {% if is_granted('ROLE_USER') %}
+                {% if app.user == post.getAuteur() %}
+                 <button class="delete-feedy" data-publication-id={{ post.getId() }}>Supprimer</button>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>

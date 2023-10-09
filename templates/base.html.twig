@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>{% block page_title %}The Feed{% endblock %}</title>
+    <meta charset="utf-8">
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset("css/style.css") }}">
+
+    {% block over_link_head %}{% endblock %}
+</head>
+
+<body>
+<header>
+    <div id="titre" class="center">
+        <a href="{{ path("feed") }}"><span>The Feed</span></a>
+        <nav>
+            <a href="{{ path("feed") }}">Accueil</a>
+            {% if not is_granted('ROLE_USER') %}
+            <a href="{{ path("inscription") }}">Inscription</a>
+            <a href="{{ path("connexion") }}">Connexion</a>
+            {% else %}
+                <a href="{{ path('pagePerso', {'login' : app.user.login }) }}">Ma page</a>
+                <form method="post" action="{{path('deconnexion')}}">
+                <button id="btn-deconnexion">Déconnexion</button>
+            </form>
+            {% endif %}
+        </nav>
+    </div>
+    <div id="flashes-container">
+        {% for success in app.flashes('success') %}
+        <!-- Pour chaque message du type "success" -->
+        <span class="flashes flashes-success">{{ success }}</span>
+        {% endfor %}
+        {% for error in app.flashes('error') %}
+            <!-- Pour chaque message du type "error" -->
+            <span class="flashes flashes-error">{{ error }}</span>
+        {% endfor %}
+    </div>
+</header>
+{% block page_content %}{% endblock %}
+
+</body>
+</html>

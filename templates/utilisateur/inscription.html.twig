@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+{% block page_title %}
+    Inscription
+{% endblock %}
+{% block page_content %}
+    <main>
+        {{ form_start(inscriForm, {'attr': {'class': 'center basic-form'}}) }}
+        <fieldset>
+            <legend>Inscription</legend>
+            <div class="access-container">
+                <!-- Affichage du label "Login" -->
+                {{ form_label(inscriForm.login,'Login') }}
+                <p class="help-input-form">Entre 4 et 20 caractères</p>
+                <!-- Affichage de l'input du login -->
+                {{ form_widget(inscriForm.login) }}
+            </div>
+            <div class="access-container">
+                <!-- Affichage du label "Mot de passe" -->
+                {{ form_label(inscriForm.plainPassword,'Password') }}
+                <p class="help-input-form">Entre 8 et 30 caractères, au moins une minuscule, une majuscule et un nombre</p>
+                <!-- Affichage de l'input du mot de passe -->
+                {{ form_widget(inscriForm.plainPassword) }}
+            </div>
+            <div class="access-container">
+                <!-- Affichage du label "Adresse mail" -->
+                {{ form_label(inscriForm.adresseEmail,'Email') }}
+                <!-- Affichage de l'input de l'adresse email -->
+                {{ form_widget(inscriForm.adresseEmail) }}
+            </div>
+            <div class="access-container">
+                <!-- Affichage du label "Photo de profil" -->
+                {{ form_label(inscriForm.fichierPhotoProfil,'Photo de profil') }}
+                <!-- Affichage de l'input de la photo de profil (required : '', car non obligatoire...) -->
+                {{ form_widget(inscriForm.fichierPhotoProfil)}}
+            </div>
+            <!-- Affichage du bouton d'envoi, contenant le texte (label) "S'inscrire" -->
+            {{ form_widget(inscriForm.inscription, {'label':"S'inscrire", 'attr': {'class': 'basic-form-submit'}}) }}
+        </fieldset>
+        {{ form_rest(inscriForm) }}
+        {{ form_end(inscriForm) }}
+    </main>
+
+{% endblock %}

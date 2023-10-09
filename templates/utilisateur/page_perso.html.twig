@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+{% block page_title %}
+    Les publications de {{ user.getLogin() }}
+{% endblock %}
+{% block over_link_head %}
+    <script defer type="text/javascript" src="{{ asset("js/publications.js") }}"></script>
+{% endblock %}
+{% block page_content %}
+    <main>
+        <div class="center">
+            <p id="titre-page-perso">Page de {{ user.getLogin() }} </p>
+        </div>
+        <div id="feed">
+            {% for post in user.getPublications() %}
+                {{ include('publication/publication.html.twig',{'post':post}) }}
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

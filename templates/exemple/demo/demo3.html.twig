@@ -1,0 +1,21 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+</head>
+<body>
+<!-- Zone à compléter par la suite -->
+<ul>
+    {% for produit in liste %}
+        {% if produit=="Livre sur Symfony" %}
+            <li><strong>{{ produit }}</strong></li>
+        {% else %}
+            <li>{{ produit }}</li>
+        {% endif %}
+    {% endfor %}
+    {% for flashMsg in app.flashes('success') %}
+        {{ flashMsg }}
+    {% endfor %}
+</ul>
+</body>
+</html>
